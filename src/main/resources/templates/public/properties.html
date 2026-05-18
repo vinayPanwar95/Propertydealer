@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Properties | Shree Nath Ji Associates</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            background:#f8f9fa;
+        }
+
+        .navbar{
+            background:rgba(0,0,0,0.8)!important;
+            backdrop-filter:blur(10px);
+        }
+
+        .navbar-brand{
+            color:#2ecc71!important;
+            font-weight:700;
+        }
+
+        .properties-hero{
+            height:55vh;
+            background:
+                    linear-gradient(135deg, rgba(46,204,113,0.85), rgba(52,152,219,0.85)),
+                    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&h=900&fit=crop')
+                    center/cover;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+        }
+
+        .hero-content h1{
+            font-size:3.5rem;
+            font-weight:800;
+        }
+
+        .properties-section{
+            padding:80px 0;
+        }
+
+        .property-card{
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 8px 25px rgba(0,0,0,0.08);
+            transition:0.3s;
+            height:100%;
+        }
+
+        .property-card:hover{
+            transform:translateY(-8px);
+        }
+
+        /* GRID */
+        .property-image{
+            width:100%;
+            padding:10px;
+            background:#f1f1f1;
+
+            display:grid;
+            grid-template-columns:repeat(2, 1fr);
+            gap:6px;
+        }
+
+        .property-image img{
+            width:100%;
+            height:140px;
+            object-fit:cover;
+            border-radius:10px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .property-image img:hover{
+            transform:scale(1.05);
+        }
+
+        .fallback-icon{
+            height:260px;
+            width:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:3rem;
+            color:#7f8c8d;
+        }
+
+        .property-card-body{
+            padding:20px;
+        }
+
+        .price{
+            font-size:1.6rem;
+            font-weight:800;
+            color:#2ecc71;
+        }
+
+        .btn-view-details{
+            width:100%;
+            background:linear-gradient(135deg,#2ecc71,#27ae60);
+            border:none;
+            padding:12px;
+            border-radius:50px;
+            color:white;
+            font-weight:600;
+        }
+
+        /* LIGHTBOX */
+        .lightbox{
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.9);
+            justify-content:center;
+            align-items:center;
+            z-index:9999;
+        }
+
+        .lightbox img{
+            max-width:80%;
+            max-height:80%;
+            border-radius:10px;
+        }
+
+        .close-btn{
+            position:absolute;
+            top:20px;
+            right:30px;
+            font-size:40px;
+            color:white;
+            cursor:pointer;
+        }
+
+        .nav-btn{
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            font-size:40px;
+            background:none;
+            border:none;
+            color:white;
+            cursor:pointer;
+        }
+
+        .prev{ left:20px; }
+        .next{ right:20px; }
+
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-leaf"></i> Shree Nath Ji Associates
+        </a>
+    </div>
+</nav>
+
+<section class="properties-hero">
+    <div class="hero-content">
+        <h1>Featured Properties</h1>
+    </div>
+</section>
+
+<section class="properties-section">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-md-4" th:each="p : ${properties}">
+
+                <!-- IMPORTANT: store images per property -->
+                <div class="property-card"
+                     th:attr="data-images=${#strings.arrayJoin(p.mediaUrls, '||')}">
+
+                    <!-- GRID -->
+                    <div class="property-image">
+
+                        <div th:if="${p.mediaUrls != null and !p.mediaUrls.isEmpty()}"
+                             th:each="media : ${p.mediaUrls}">
+
+                            <img th:src="@{'/properties/' + ${media}}"
+                                 onclick="openGallery(this)">
+
+                        </div>
+
+                        <div th:if="${p.mediaUrls == null or p.mediaUrls.isEmpty()}"
+                             class="fallback-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+
+                    </div>
+
+                    <!-- BODY -->
+                    <div class="property-card-body">
+
+                        <h5 th:text="${p.name}"></h5>
+
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span th:text="${p.location}"></span>
+                        </div>
+
+                        <div class="price"
+                             th:text="'₹ ' + ${p.price}">
+                        </div>
+
+                        <button class="btn btn-view-details"
+                                onclick="window.location.href='/contact/form'">
+                            Contact for Details
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeGallery()">
+
+    <span class="close-btn">&times;</span>
+
+    <img id="lightbox-img">
+
+    <button class="nav-btn prev" onclick="event.stopPropagation(); prevImage()">&#10094;</button>
+    <button class="nav-btn next" onclick="event.stopPropagation(); nextImage()">&#10095;</button>
+
+</div>
+
+<footer class="text-center p-4 bg-dark text-white mt-5">
+    © 2024 Shree Nath Ji Associates
+</footer>
+
+<script>
+
+    let images = [];
+    let currentIndex = 0;
+
+    function openGallery(img) {
+
+        const card = img.closest('.property-card');
+
+        const data = card.getAttribute('data-images');
+
+        // build image list for ONLY this property
+        images = data ? data.split('||').map(i => '/properties/' + i) : [];
+
+        // FIX: correct matching (NOT indexOf)
+        currentIndex = images.findIndex(i => img.src.includes(i));
+
+        if (currentIndex === -1) {
+            currentIndex = 0;
+        }
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        lightbox.style.display = 'flex';
+
+        // FIX: force proper reload (removes spinner stuck issue)
+        lightboxImg.src = "";
+        setTimeout(() => {
+            lightboxImg.src = images[currentIndex];
+        }, 10);
+    }
+
+    function closeGallery() {
+        document.getElementById('lightbox').style.display = 'none';
+    }
+
+    function nextImage() {
+        if (!images.length) return;
+
+        currentIndex = (currentIndex + 1) % images.length;
+        document.getElementById('lightbox-img').src = images[currentIndex];
+    }
+
+    function prevImage() {
+        if (!images.length) return;
+
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        document.getElementById('lightbox-img').src = images[currentIndex];
+    }
+
+</script>
+
+</body>
+</html>

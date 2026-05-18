@@ -1,0 +1,59 @@
+server:
+  port: 8081
+
+app:
+  admin:
+    username: admin
+    password: admin123
+
+  mail:
+    from: shreeenathjiassociates@gmail.com
+    recipient: vinay.panwar95@gmail.com
+
+property:
+  storage: src/main/resources/static/properties/
+
+
+spring:
+  datasource:
+    url: jdbc:h2:file:./src/main/resources/db/propertyDB
+#    url: jdbc:h2:file:./data/propertyDB
+#    url: jdbc:h2:mem:propertyDB
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: shreeenathjiassociates@gmail.com
+    password: sdpubueeiuvuztsh
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000

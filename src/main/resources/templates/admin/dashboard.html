@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+<style>
+	.custom-alert-overlay {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 9999;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.custom-alert-overlay.show {
+		display: flex;
+	}
+
+	.custom-alert-box {
+		background: white;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		max-width: 400px;
+		text-align: center;
+	}
+
+	.custom-alert-box p {
+		margin: 0 0 20px 0;
+		font-size: 16px;
+	}
+
+	.custom-alert-box button {
+		padding: 8px 20px;
+		background: #007bff;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	.custom-alert-box button:hover {
+		background: #0056b3;
+	}
+
+	.custom-confirm-box {
+		background: white;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		max-width: 400px;
+		text-align: center;
+	}
+
+	.custom-confirm-box p {
+		margin: 0 0 20px 0;
+		font-size: 16px;
+	}
+
+	.custom-confirm-box .button-group {
+		display: flex;
+		gap: 10px;
+		justify-content: center;
+	}
+
+	.custom-confirm-box button {
+		padding: 8px 20px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		font-weight: 500;
+	}
+
+	.btn-confirm-yes {
+		background: #dc3545;
+		color: white;
+	}
+
+	.btn-confirm-yes:hover {
+		background: #c82333;
+	}
+
+	.btn-confirm-no {
+		background: #6c757d;
+		color: white;
+	}
+
+	.btn-confirm-no:hover {
+		background: #5a6268;
+	}
+</style>
+</head>
+
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+<div class="content-wrapper p-3">
+
+<!-- Custom Alert Modal -->
+<div class="custom-alert-overlay" id="customAlertOverlay">
+	<div class="custom-alert-box">
+		<p id="customAlertMessage"></p>
+		<button onclick="closeCustomAlert()">OK</button>
+	</div>
+</div>
+
+<!-- Custom Confirm Modal -->
+<div class="custom-alert-overlay" id="customConfirmOverlay">
+	<div class="custom-confirm-box">
+		<p id="customConfirmMessage"></p>
+		<div class="button-group">
+			<button class="btn-confirm-yes" onclick="confirmYes()">Yes, Delete</button>
+			<button class="btn-confirm-no" onclick="confirmNo()">Cancel</button>
+		</div>
+	</div>
+</div>
+
+<h3>Admin Dashboard</h3>
+
+<a href="/admin/add" class="btn btn-primary">Add Property</a>
+
+<table class="table mt-3">
+	<thead>
+		<tr><th>Photo</th><th>Name</th><th>Location</th><th>Price</th><th>Action</th></tr>
+	</thead>
+	<tbody id="propertiesBody">
+		<!-- Rows will be populated by JS -->
+	</tbody>
+</table>
+
+<script>
+	// Custom Alert Functions
+	function showCustomAlert(message) {
+		document.getElementById('customAlertMessage').textContent = message;
+		document.getElementById('customAlertOverlay').classList.add('show');
+	}
+
+	function closeCustomAlert() {
+		document.getElementById('customAlertOverlay').classList.remove('show');
+	}
+
+	// Custom Confirm Functions
+	let confirmCallback = null;
+
+	function showCustomConfirm(message, callback) {
+		confirmCallback = callback;
+		document.getElementById('customConfirmMessage').textContent = message;
+		document.getElementById('customConfirmOverlay').classList.add('show');
+	}
+
+	function confirmYes() {
+		document.getElementById('customConfirmOverlay').classList.remove('show');
+		if (confirmCallback) {
+			confirmCallback(true);
+		}
+	}
+
+	function confirmNo() {
+		document.getElementById('customConfirmOverlay').classList.remove('show');
+		if (confirmCallback) {
+			confirmCallback(false);
+		}
+	}
+
+	// On load, fetch properties via admin controller and render table rows
+	async function loadProperties() {
+		try {
+			const resp = await fetch('/admin/properties');
+			if (!resp.ok) throw new Error('Failed to load properties');
+			const list = await resp.json();
+			const tbody = document.getElementById('propertiesBody');
+			tbody.innerHTML = '';
+			list.forEach(p => {
+			console.log('Property loaded: ', p);
+				const tr = document.createElement('tr');
+				// Photo column - show first mediaUrl if available
+				const photoTd = document.createElement('td');
+				if (p.mediaUrls && p.mediaUrls.length > 0) {
+					const img = document.createElement('img');
+					img.src = '/properties/' + p.mediaUrls[0];
+					img.style.height = '80px';
+					img.style.objectFit = 'cover';
+					img.alt = p.name || 'photo';
+					photoTd.appendChild(img);
+				} else {
+					photoTd.textContent = '-';
+				}
+				tr.appendChild(photoTd);
+
+				const nameTd = document.createElement('td');
+				nameTd.textContent = p.name || '';
+				tr.appendChild(nameTd);
+
+				const locTd = document.createElement('td');
+				locTd.textContent = p.location || '';
+				tr.appendChild(locTd);
+
+				const priceTd = document.createElement('td');
+				priceTd.textContent = p.price || '';
+				tr.appendChild(priceTd);
+
+				const actionTd = document.createElement('td');
+				const del = document.createElement('button');
+				del.className = 'btn btn-danger';
+				del.textContent = 'Delete';
+				del.type = 'button';
+				del.onclick = async function(e) {
+					e.preventDefault();
+					showCustomConfirm('Are you sure you want to delete this property?', async function(confirmed) {
+						if (!confirmed) {
+							return;
+						}
+						try {
+						console.error('deleting proerty with Id ', p.id);
+						const deleteResp = await fetch('/admin/delete/' + p.id, {
+								method: 'GET'
+							});
+							if (deleteResp.ok) {
+								// Reload properties after delete
+								loadProperties();
+								showCustomAlert('Property deleted successfully!');
+							} else {
+								showCustomAlert('Failed to delete property');
+							}
+						} catch (err) {
+							console.error('Error deleting property', err);
+							showCustomAlert('Error deleting property');
+						}
+					});
+				};
+				actionTd.appendChild(del);
+				tr.appendChild(actionTd);
+
+				tbody.appendChild(tr);
+			});
+		} catch (e) {
+			console.error('Error loading properties', e);
+		}
+	}
+
+	document.addEventListener('DOMContentLoaded', loadProperties);
+</script>
+
+</div>
+
+</div>
+</body>
+</html>
