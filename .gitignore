@@ -10,8 +10,8 @@ out/
 # =========================
 # Maven / Gradle
 # =========================
-target/
-build/
+#target/
+#build/
 
 # =========================
 # Spring Boot Logs

@@ -17,4 +17,4 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Run the jar
-CMD ["java", "-jar", "target/propertydealer-1.0.jar"]
+CMD ["java", "-jar", "target/property-dealer-1.0.jar"]
