@@ -31,7 +31,6 @@ public class PropertyService {
         List<PropertyDTO> propertyDTOs = new ArrayList<>();
         for (Property property : properties) {
             PropertyDTO dto = propertyMapper.toPropertyDTO(property);
-//            propertyMediaService.fetchAndSetMedia(dto);
             propertyDTOs.add(dto);
         }
         return propertyDTOs;

@@ -2,6 +2,7 @@ package com.app.property.controller;
 
 import com.app.property.model.Contact;
 import com.app.property.service.EmailService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,22 +66,16 @@ public class ContactController {
     /**
      * Simple response wrapper
      */
+    @Getter
     public static class ApiResponse {
-        private boolean success;
-        private String message;
+        private final boolean success;
+        private final String message;
 
         public ApiResponse(boolean success, String message) {
             this.success = success;
             this.message = message;
         }
 
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public String getMessage() {
-            return message;
-        }
     }
 }
 

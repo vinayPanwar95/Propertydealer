@@ -16,6 +16,9 @@ public class PropertyDTO {
     private String description;
     private String location;
     private String price;
+    @Builder.Default
+    private Boolean isSold = false;
+    public String videoUrl;
     @JsonIgnore
     private MultipartFile[] media;
     private java.util.List<String> mediaUrls;

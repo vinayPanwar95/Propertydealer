@@ -25,6 +25,8 @@ public class PropertyMapper {
                 .description(dto.getDescription())
                 .location(dto.getLocation())
                 .price(dto.getPrice())
+                .isSold(dto.getIsSold())
+                .videoUrl(dto.getVideoUrl())
                 .build();
 
         // Create PropertyMedia entities from URLs
@@ -62,6 +64,8 @@ public class PropertyMapper {
                 .name(property.getName())
                 .description(property.getDescription())
                 .location(property.getLocation())
+                .isSold(property.isSold)
+                .videoUrl(property.getVideoUrl())
                 .price(property.getPrice())
                 .mediaUrls(mediaUrls)
                 .build();

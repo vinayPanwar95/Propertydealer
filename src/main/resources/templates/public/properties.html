@@ -10,116 +10,124 @@
 
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8f9fa;}
+        body{font-family:'Segoe UI',sans-serif;background:#f7f8fc;color:#1f2937;}
 
         .navbar{
-            background:rgba(0,0,0,0.85)!important;
-            backdrop-filter:blur(10px);
+            background:white!important;
+            border-bottom:1px solid #e5e7eb;
         }
 
         .navbar-brand{
-            color:#2ecc71!important;
-            font-weight:700;
+            font-weight:800;
+            color:#2563eb!important;
         }
 
         .nav-link{
-            color:white !important;
-            font-weight:500;
-            margin-left:10px;
+            font-weight:600;
+            color:#374151 !important;
+            margin-left:12px;
         }
 
         .nav-link:hover{
-            color:#2ecc71 !important;
+            color:#2563eb !important;
+        }
+
+        .nav-home{
+            background:#2563eb;
+            color:white !important;
+            padding:6px 14px;
+            border-radius:10px;
+        }
+
+        .nav-home:hover{
+            background:#1d4ed8;
+            color:white !important;
         }
 
         .properties-hero{
-            height:55vh;
-            background:
-                linear-gradient(135deg, rgba(46,204,113,0.85), rgba(52,152,219,0.85)),
-                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&h=900&fit=crop')
-                center/cover;
+            height:45vh;
+            background:linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+            url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600&auto=format&fit=crop')
+            center/cover;
             display:flex;
             align-items:center;
             justify-content:center;
-            color:white;
+            text-align:center;
         }
 
-        .hero-content h1{
-            font-size:3.5rem;
-            font-weight:800;
-        }
+        .hero-content h1{color:white;font-size:4rem;font-weight:800;}
+        .hero-content p{color:#f3f4f6;}
 
-        .properties-section{
-            padding:80px 0;
-        }
+        .properties-section{padding:70px 0;}
 
         .property-card{
             background:white;
-            border-radius:20px;
+            border-radius:18px;
             overflow:hidden;
-            box-shadow:0 8px 25px rgba(0,0,0,0.08);
+            border:1px solid #e5e7eb;
             transition:0.3s;
             height:100%;
         }
 
         .property-card:hover{
-            transform:translateY(-8px);
+            transform:translateY(-6px);
+            box-shadow:0 15px 40px rgba(0,0,0,0.08);
         }
 
-        /* GRID FIX */
         .property-image{
             width:100%;
             padding:10px;
-            background:#f1f1f1;
+            background:#f9fafb;
             display:grid;
-            grid-template-columns:repeat(2, 1fr);
-            gap:6px;
+            grid-template-columns:repeat(2,1fr);
+            gap:8px;
+            position:relative;
         }
 
         .property-image img{
             width:100%;
-            height:140px;
+            height:160px;
             object-fit:cover;
-            border-radius:10px;
+            border-radius:12px;
             cursor:pointer;
-            transition:0.3s;
         }
 
-        .property-image img:hover{
-            transform:scale(1.05);
-        }
-
-        .fallback-icon{
-            height:260px;
-            width:100%;
+        .video-big-btn{
             display:flex;
             align-items:center;
             justify-content:center;
-            font-size:3rem;
-            color:#7f8c8d;
+            gap:10px;
+            width:100%;
+            padding:14px;
+            margin-top:10px;
+            background:#ef4444;
+            color:white;
+            border-radius:12px;
+            font-weight:700;
+            text-decoration:none;
+            font-size:15px;
         }
 
-        .property-card-body{
-            padding:20px;
+        .video-big-btn:hover{
+            background:#dc2626;
         }
 
         .price{
-            font-size:1.6rem;
+            font-size:1.8rem;
             font-weight:800;
-            color:#2ecc71;
+            color:#2563eb;
         }
 
         .btn-view-details{
             width:100%;
-            background:linear-gradient(135deg,#2ecc71,#27ae60);
+            background:#2563eb;
             border:none;
-            padding:12px;
-            border-radius:50px;
             color:white;
-            font-weight:600;
+            padding:13px;
+            border-radius:12px;
+            font-weight:700;
         }
 
-        /* LIGHTBOX */
         .lightbox{
             display:none;
             position:fixed;
@@ -127,64 +135,50 @@
             left:0;
             width:100%;
             height:100%;
-            background:rgba(0,0,0,0.9);
+            background:rgba(0,0,0,0.92);
             justify-content:center;
             align-items:center;
             z-index:9999;
         }
 
         .lightbox img{
-            max-width:80%;
-            max-height:80%;
-            border-radius:10px;
+            max-width:85%;
+            max-height:85%;
+            border-radius:14px;
         }
 
         .close-btn{
             position:absolute;
-            top:20px;
-            right:30px;
-            font-size:40px;
+            top:25px;
+            right:35px;
+            font-size:42px;
             color:white;
             cursor:pointer;
         }
-
-        .nav-btn{
-            position:absolute;
-            top:50%;
-            transform:translateY(-50%);
-            font-size:40px;
-            background:none;
-            border:none;
-            color:white;
-            cursor:pointer;
-        }
-
-        .prev{left:20px;}
-        .next{right:20px;}
     </style>
 </head>
 
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
 
         <a class="navbar-brand" href="/">
-            <i class="fas fa-leaf"></i> Shree Nath Ji Associates
+            <i class="fas fa-building"></i> Shree Nath Ji Associates
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-
+        <div class="collapse navbar-collapse justify-content-end" id="nav">
             <ul class="navbar-nav">
 
+                <!-- HOME BUTTON ADDED -->
                 <li class="nav-item">
-                    <a class="nav-link active" href="/">
-                        Home
+                    <a class="nav-link nav-home" href="/">
+                        <i class="fas fa-home"></i> Home
                     </a>
                 </li>
 
@@ -195,7 +189,6 @@
                 </li>
 
             </ul>
-
         </div>
 
     </div>
@@ -205,16 +198,16 @@
 <section class="properties-hero">
     <div class="hero-content">
         <h1>Featured Properties</h1>
+        <p>Explore premium lands, residential & industrial properties</p>
     </div>
 </section>
 
 <!-- PROPERTIES -->
 <section class="properties-section">
-
     <div class="container">
         <div class="row g-4">
 
-            <div class="col-md-4" th:each="p : ${properties}">
+            <div class="col-lg-4 col-md-6" th:each="p : ${properties}">
 
                 <div class="property-card"
                      th:attr="data-images=${#strings.listJoin(p.mediaUrls, '||')}">
@@ -224,21 +217,24 @@
                         <img th:each="media : ${p.mediaUrls}"
                              th:if="${p.mediaUrls != null and !p.mediaUrls.isEmpty()}"
                              th:src="${media}"
-                             onclick="openGallery(this)"/>
+                             onclick="openGallery(this)" />
 
-                        <div th:if="${p.mediaUrls == null or p.mediaUrls.isEmpty()}"
-                             class="fallback-icon">
-                            <i class="fas fa-tree"></i>
-                        </div>
+                        <a th:if="${p.videoUrl != null and !p.videoUrl.isEmpty()}"
+                           th:href="${p.videoUrl}"
+                           target="_blank"
+                           class="video-big-btn">
+
+                            <i class="fas fa-play-circle"></i>
+                            Watch Property Video
+                        </a>
 
                     </div>
 
                     <div class="property-card-body">
-
                         <h5 th:text="${p.name}"></h5>
 
-                        <div>
-                            <i class="fas fa-map-marker-alt"></i>
+                        <div class="location">
+                            <i class="fas fa-location-dot"></i>
                             <span th:text="${p.location}"></span>
                         </div>
 
@@ -248,7 +244,6 @@
                                 onclick="window.location.href='/contact/form'">
                             Contact for Details
                         </button>
-
                     </div>
 
                 </div>
@@ -257,71 +252,25 @@
 
         </div>
     </div>
-
 </section>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox" onclick="closeGallery()">
-
     <span class="close-btn">&times;</span>
-
     <img id="lightbox-img">
-
-    <button class="nav-btn prev" onclick="event.stopPropagation(); prevImage()">&#10094;</button>
-    <button class="nav-btn next" onclick="event.stopPropagation(); nextImage()">&#10095;</button>
-
 </div>
 
-<footer class="text-center p-4 bg-dark text-white mt-5">
-    © 2024 Shree Nath Ji Associates
-</footer>
-
 <script>
-
-    let images = [];
-    let currentIndex = 0;
-
-    function openGallery(img) {
-
-        const card = img.closest('.property-card');
-        const data = card.getAttribute('data-images');
-
-        images = data ? data.split('||').map(url => url.trim()) : [];
-
-        currentIndex = images.indexOf(img.src);
-
-        if (currentIndex === -1) {
-            currentIndex = 0;
-        }
-
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-
-        lightbox.style.display = 'flex';
-        lightboxImg.src = images[currentIndex];
+    function openGallery(img){
+        document.getElementById('lightbox').style.display = 'flex';
+        document.getElementById('lightbox-img').src = img.src;
     }
 
-    function closeGallery() {
+    function closeGallery(){
         document.getElementById('lightbox').style.display = 'none';
     }
-
-    function nextImage() {
-        if (!images.length) return;
-
-        currentIndex = (currentIndex + 1) % images.length;
-        document.getElementById('lightbox-img').src = images[currentIndex];
-    }
-
-    function prevImage() {
-        if (!images.length) return;
-
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        document.getElementById('lightbox-img').src = images[currentIndex];
-    }
-
 </script>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

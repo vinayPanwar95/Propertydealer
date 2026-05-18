@@ -3,42 +3,99 @@
 <head>
     <title>Add Property</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .pg-header {
+            background: #0b1f3a;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .pg-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .btn-success {
+            background: #f5b301;
+            border: none;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .btn-success:hover {
+            background: #e0a800;
+        }
+
+        label {
+            font-weight: 600;
+            color: #0b1f3a;
+        }
+
+        h3 {
+            color: #0b1f3a;
+            font-weight: 700;
+        }
+    </style>
 </head>
+
 <body class="p-4">
 
-<h3>Add Property</h3>
+<div class="pg-card">
 
-<form method="post" action="/admin/add" enctype="multipart/form-data">
-
-    <div class="form-group">
-        <label>Property Name</label>
-        <input name="name" class="form-control" placeholder="Name">
+    <div class="pg-header">
+        <h3>Add New Property</h3>
+        <small>Admin Panel</small>
     </div>
 
-    <div class="form-group">
-        <label>Location</label>
-        <input name="location" class="form-control" placeholder="Location">
-    </div>
+    <form method="post" action="/admin/add" enctype="multipart/form-data">
 
-    <div class="form-group">
-        <label>Price</label>
-        <input name="price" class="form-control" placeholder="Price">
-    </div>
+        <div class="form-group">
+            <label>Property Name</label>
+            <input name="name" class="form-control" placeholder="Enter property name">
+        </div>
 
-    <div class="form-group">
-        <label>Description</label>
-        <textarea name="description" class="form-control" placeholder="Description"></textarea>
-    </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input name="location" class="form-control" placeholder="Enter location">
+        </div>
 
-    <!-- Upload Photos/Videos -->
-    <div class="form-group">
-        <label>Upload Photos / Videos</label>
-        <input type="file" name="media" class="form-control" multiple accept="image/*,video/*">
-    </div>
+        <div class="form-group">
+            <label>Price</label>
+            <input name="price" class="form-control" placeholder="Enter price">
+        </div>
 
-    <button class="btn btn-success">Save</button>
+        <div class="form-group">
+            <label>Video URL</label>
+            <input name="videoUrl" class="form-control" placeholder="Video Link">
+        </div>
 
-</form>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" class="form-control" placeholder="Property description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Upload Photos / Videos</label>
+            <input type="file" name="media" class="form-control" multiple accept="image/*,video/*">
+        </div>
+
+        <button class="btn btn-success btn-block">Save Property</button>
+
+    </form>
+
+</div>
 
 </body>
 </html>

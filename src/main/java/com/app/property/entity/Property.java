@@ -23,6 +23,9 @@ public class Property {
     public String description;
     public String location;
     public String price;
+    @Builder.Default
+    public Boolean isSold = false;
+    public String videoUrl;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     private List<PropertyMedia> media;
