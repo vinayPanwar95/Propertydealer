@@ -9,20 +9,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
-
-        body{
-            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-            background:#f8f9fa;
-        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8f9fa;}
 
         .navbar{
-            background:rgba(0,0,0,0.8)!important;
+            background:rgba(0,0,0,0.85)!important;
             backdrop-filter:blur(10px);
         }
 
@@ -31,12 +22,22 @@
             font-weight:700;
         }
 
+        .nav-link{
+            color:white !important;
+            font-weight:500;
+            margin-left:10px;
+        }
+
+        .nav-link:hover{
+            color:#2ecc71 !important;
+        }
+
         .properties-hero{
             height:55vh;
             background:
-                    linear-gradient(135deg, rgba(46,204,113,0.85), rgba(52,152,219,0.85)),
-                    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&h=900&fit=crop')
-                    center/cover;
+                linear-gradient(135deg, rgba(46,204,113,0.85), rgba(52,152,219,0.85)),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&h=900&fit=crop')
+                center/cover;
             display:flex;
             align-items:center;
             justify-content:center;
@@ -65,12 +66,11 @@
             transform:translateY(-8px);
         }
 
-        /* GRID */
+        /* GRID FIX */
         .property-image{
             width:100%;
             padding:10px;
             background:#f1f1f1;
-
             display:grid;
             grid-template-columns:repeat(2, 1fr);
             gap:6px;
@@ -159,50 +159,72 @@
             cursor:pointer;
         }
 
-        .prev{ left:20px; }
-        .next{ right:20px; }
-
+        .prev{left:20px;}
+        .next{right:20px;}
     </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
+
         <a class="navbar-brand" href="/">
             <i class="fas fa-leaf"></i> Shree Nath Ji Associates
         </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact/form">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
     </div>
 </nav>
 
+<!-- HERO -->
 <section class="properties-hero">
     <div class="hero-content">
         <h1>Featured Properties</h1>
     </div>
 </section>
 
+<!-- PROPERTIES -->
 <section class="properties-section">
 
     <div class="container">
-
         <div class="row g-4">
 
             <div class="col-md-4" th:each="p : ${properties}">
 
-                <!-- IMPORTANT: store images per property -->
                 <div class="property-card"
-                     th:attr="data-images=${#strings.arrayJoin(p.mediaUrls, '||')}">
+                     th:attr="data-images=${#strings.listJoin(p.mediaUrls, '||')}">
 
-                    <!-- GRID -->
                     <div class="property-image">
 
-                        <div th:if="${p.mediaUrls != null and !p.mediaUrls.isEmpty()}"
-                             th:each="media : ${p.mediaUrls}">
-
-                            <img th:src="@{'/properties/' + ${media}}"
-                                 onclick="openGallery(this)">
-
-                        </div>
+                        <img th:each="media : ${p.mediaUrls}"
+                             th:if="${p.mediaUrls != null and !p.mediaUrls.isEmpty()}"
+                             th:src="${media}"
+                             onclick="openGallery(this)"/>
 
                         <div th:if="${p.mediaUrls == null or p.mediaUrls.isEmpty()}"
                              class="fallback-icon">
@@ -211,19 +233,16 @@
 
                     </div>
 
-                    <!-- BODY -->
                     <div class="property-card-body">
 
                         <h5 th:text="${p.name}"></h5>
 
-                        <div class="location">
+                        <div>
                             <i class="fas fa-map-marker-alt"></i>
                             <span th:text="${p.location}"></span>
                         </div>
 
-                        <div class="price"
-                             th:text="'₹ ' + ${p.price}">
-                        </div>
+                        <div class="price" th:text="'₹ ' + ${p.price}"></div>
 
                         <button class="btn btn-view-details"
                                 onclick="window.location.href='/contact/form'">
@@ -237,7 +256,6 @@
             </div>
 
         </div>
-
     </div>
 
 </section>
@@ -266,14 +284,11 @@
     function openGallery(img) {
 
         const card = img.closest('.property-card');
-
         const data = card.getAttribute('data-images');
 
-        // build image list for ONLY this property
-        images = data ? data.split('||').map(i => '/properties/' + i) : [];
+        images = data ? data.split('||').map(url => url.trim()) : [];
 
-        // FIX: correct matching (NOT indexOf)
-        currentIndex = images.findIndex(i => img.src.includes(i));
+        currentIndex = images.indexOf(img.src);
 
         if (currentIndex === -1) {
             currentIndex = 0;
@@ -283,12 +298,7 @@
         const lightboxImg = document.getElementById('lightbox-img');
 
         lightbox.style.display = 'flex';
-
-        // FIX: force proper reload (removes spinner stuck issue)
-        lightboxImg.src = "";
-        setTimeout(() => {
-            lightboxImg.src = images[currentIndex];
-        }, 10);
+        lightboxImg.src = images[currentIndex];
     }
 
     function closeGallery() {
@@ -310,6 +320,9 @@
     }
 
 </script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

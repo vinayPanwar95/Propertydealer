@@ -15,9 +15,4 @@ public class PropertyDealerApplication {
 
         SpringApplication.run(PropertyDealerApplication.class, args);
     }
-
-    @PreDestroy
-    public void onExit() {
-        System.out.println("Application is shutting down...");
-    }
 }

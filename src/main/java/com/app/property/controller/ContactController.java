@@ -3,6 +3,7 @@ package com.app.property.controller;
 import com.app.property.model.Contact;
 import com.app.property.service.EmailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/contact")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Slf4j
 public class ContactController {
 
     private final  EmailService emailService;
@@ -23,7 +25,7 @@ public class ContactController {
     @GetMapping("/form")
     public String contactForm() {
 
-        System.err.println(":loading contact form");
+        log.info("Loading contact form");
         return "public/contact";
     }
 
@@ -54,7 +56,7 @@ public class ContactController {
             return ResponseEntity.ok(new ApiResponse(true, "Thank you for your enquiry! We will contact you soon."));
 
         } catch (Exception e) {
-            System.err.println("Error processing contact form: " + e.getMessage());
+            log.error("Error processing contact form: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(false, "Error sending enquiry. Please try again later."));
         }

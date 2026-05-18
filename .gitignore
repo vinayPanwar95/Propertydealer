@@ -1,0 +1,55 @@
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# =========================
+# Maven / Gradle
+# =========================
+target/
+build/
+
+# =========================
+# Spring Boot Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# Environment Files (IMPORTANT 🔥)
+# =========================
+.env
+local.env
+application-local.yml
+application-local.properties
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Java
+# =========================
+*.class
+
+# =========================
+# H2 / DB files (if used locally)
+# =========================
+*.mv.db
+*.trace.db
+
+# =========================
+# Node (if frontend exists)
+# =========================
+node_modules/
+
+# =========================
+# Security (VERY IMPORTANT)
+# =========================
+/src/main/resources/application-secrets.yml

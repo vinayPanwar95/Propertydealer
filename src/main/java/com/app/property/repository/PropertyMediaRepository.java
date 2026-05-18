@@ -1,6 +1,7 @@
 package com.app.property.repository;
 
 import com.app.property.entity.Property;
+import com.app.property.entity.PropertyMedia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface PropertyRepository extends JpaRepository<Property, UUID> {
+public interface PropertyMediaRepository extends JpaRepository<PropertyMedia, UUID> {
+
+    List<PropertyMedia> findByPublicId(String propertyId);
 
 }

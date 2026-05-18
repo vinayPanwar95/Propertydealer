@@ -2,6 +2,7 @@ package com.app.property.service;
 
 import com.app.property.model.Contact;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,6 +18,7 @@ import javax.sql.rowset.serial.SerialRef;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EmailService {
 
     private final JavaMailSender mailSender;
@@ -26,13 +28,6 @@ public class EmailService {
 
     @Value("${app.mail.from}")
     private String fromEmail;
-
-//    @Value("${app.mail.username}")
-//    private String userName;
-//
-//    @Value("${app.mail.appcode}")
-//    private String appCode;
-
     /**
      * Send contact form enquiry email
      */
@@ -57,17 +52,13 @@ public class EmailService {
                     "Please reply to: " + contact.getEmail() + "\n" +
                     "Or call: " + contact.getPhone();
 
-            System.err.println("Preparing to send email to: " + recipientEmail);
-            System.err.println("Email content:\n" + body);
             message.setText(body);
-            System.err.println("Email message prepared successfully, sending now...");
+            log.info("Prepared email message for contact enquiry from: {}", contact.getEmail());
 
             mailSender.send(message);
-
-            System.out.println("Email sent successfully to: " + recipientEmail);
+            log.info("Sent email for contact enquiry from: {}", recipientEmail);
         } catch (Exception e) {
-            System.err.println("Error sending email: " + e.getMessage());
-            e.printStackTrace();
+            log.error("Error sending email for contact enquiry from {}: {}", contact.getEmail(), e.getMessage());
             throw new RuntimeException("Failed to send email", e);
         }
     }
@@ -82,26 +73,22 @@ public class EmailService {
             message.setTo(contact.getEmail());
             message.setSubject("Thank you for your enquiry - Shree Nath Ji Associates");
 
-            StringBuilder body = new StringBuilder();
-            body.append("Dear ").append(contact.getName()).append(",\n\n");
-            body.append("Thank you for your enquiry about our ").append(contact.getPropertyType()).append(" property.\n\n");
-            body.append("We have received your message and will get back to you within 24 hours.\n\n");
-            body.append("Your Enquiry Details:\n");
-            body.append("Phone: ").append(contact.getPhone()).append("\n");
-            body.append("Email: ").append(contact.getEmail()).append("\n\n");
-            body.append("Best regards,\n");
-            body.append("Shree Nath Ji Associates Team\n\n");
-            body.append("Contact: +91-99996-49161\n");
-            body.append("Email: shreeenathjiassociates@gmail.com");
+            String body = "Dear " + contact.getName() + ",\n\n" +
+                    "Thank you for your enquiry about our " + contact.getPropertyType() + " property.\n\n" +
+                    "We have received your message and will get back to you within 24 hours.\n\n" +
+                    "Your Enquiry Details:\n" +
+                    "Phone: " + contact.getPhone() + "\n" +
+                    "Email: " + contact.getEmail() + "\n\n" +
+                    "Best regards,\n" +
+                    "Shree Nath Ji Associates Team\n\n" +
+                    "Contact: +91-99996-49161\n" +
+                    "Email: shreeenathjiassociates@gmail.com";
 
-            message.setText(body.toString());
-
+            message.setText(body);
             mailSender.send(message);
-
-            System.out.println("Confirmation email sent to: " + contact.getEmail());
+            log.info("Sent confirmation email to: {}", contact.getEmail());
         } catch (Exception e) {
-            System.err.println("Error sending confirmation email: " + e.getMessage());
-            // Don't throw exception for confirmation email failure
+            log.error("Error sending confirmation email to {}: {}", contact.getEmail(), e.getMessage());
         }
     }
 }

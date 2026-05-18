@@ -1,8 +1,5 @@
 package com.app.property.entity;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +23,7 @@ public class Property {
     public String description;
     public String location;
     public String price;
-    // comma separated file names
-    @ElementCollection
-    private List<String> mediaUrls;
+
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    private List<PropertyMedia> media;
 }
