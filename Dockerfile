@@ -1,20 +1,20 @@
 # Use Java 21
 FROM eclipse-temurin:21-jdk
 
+# Install Maven
+RUN apt-get update && apt-get install -y maven
+
 # Set working directory
 WORKDIR /app
 
-# Copy project files
+# Copy project
 COPY . .
 
-# Give permission to mvnw
-RUN chmod +x mvnw
+# Build jar using system maven
+RUN mvn clean package -DskipTests
 
-# Build the application
-RUN ./mvnw clean package -DskipTests
-
-# Expose Render port
+# Expose port
 EXPOSE 8080
 
-# Run the jar
+# Run jar (make sure jar name matches target folder)
 CMD ["java", "-jar", "target/property-dealer-1.0.jar"]
