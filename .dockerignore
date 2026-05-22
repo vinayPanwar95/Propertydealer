@@ -3,4 +3,7 @@ target
 .idea
 *.iml
 *.mv.db
+**/*.mv.db
 *.trace.db
+**/*.trace.db
+data/
