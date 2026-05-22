@@ -1,0 +1,100 @@
+databaseChangeLog:
+
+  # ─── admin_users ────────────────────────────────────────────────────────────
+  - changeSet:
+      id: 002-create-admin-users
+      author: system
+      changes:
+        - createTable:
+            tableName: admin_users
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(50)
+                  defaultValue: ROLE_ADMIN
+                  constraints:
+                    nullable: false
+
+  # ─── property ───────────────────────────────────────────────────────────────
+  - changeSet:
+      id: 002-create-property
+      author: system
+      changes:
+        - createTable:
+            tableName: property
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: location
+                  type: varchar(255)
+              - column:
+                  name: price
+                  type: varchar(100)
+              - column:
+                  name: is_sold
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: video_url
+                  type: varchar(1000)
+
+  # ─── property_media ─────────────────────────────────────────────────────────
+  - changeSet:
+      id: 002-create-property-media
+      author: system
+      changes:
+        - createTable:
+            tableName: property_media
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: url
+                  type: varchar(1000)
+              - column:
+                  name: public_id
+                  type: varchar(255)
+              - column:
+                  name: type
+                  type: varchar(20)
+              - column:
+                  name: property_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_property_media_property
+                    references: property(id)

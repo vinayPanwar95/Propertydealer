@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-drop-existing-tables
+      author: system
+      runAlways: true
+      changes:
+        # Drop child table first to avoid FK constraint violations
+        - sql:
+            sql: DROP TABLE IF EXISTS property_media CASCADE
+        - sql:
+            sql: DROP TABLE IF EXISTS property CASCADE
+        - sql:
+            sql: DROP TABLE IF EXISTS admin_users CASCADE
