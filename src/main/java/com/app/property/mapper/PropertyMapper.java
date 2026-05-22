@@ -25,7 +25,7 @@ public class PropertyMapper {
                 .description(dto.getDescription())
                 .location(dto.getLocation())
                 .price(dto.getPrice())
-                .isSold(dto.getIsSold())
+                .isSold(dto.getIsSold() != null ? dto.getIsSold() : false)
                 .videoUrl(dto.getVideoUrl())
                 .build();
 

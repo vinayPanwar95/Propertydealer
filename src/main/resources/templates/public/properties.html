@@ -4,193 +4,283 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Featured Properties | Shree Nath Ji Associates</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Segoe UI',sans-serif;background:#f7f8fc;color:#1f2937;}
-
-        .navbar{
-            background:white!important;
-            border-bottom:1px solid #e5e7eb;
+        body {
+            font-family: Inter, "Segoe UI", sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
         }
 
-        .navbar-brand{
-            font-weight:800;
-            color:#2563eb!important;
+        /* NAVBAR */
+        .navbar {
+            background: #ffffff !important;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            color: #1e40af !important;
+            font-size: 1.4rem;
+        }
+        .nav-link {
+            color: #374151 !important;
+            font-weight: 500;
+            margin-left: 12px;
+        }
+        .nav-link:hover { color: #1e40af !important; }
+
+        /* HERO */
+        .properties-hero {
+            height: 42vh;
+            background:
+                linear-gradient(120deg, rgba(30,64,175,0.82), rgba(2,132,199,0.82)),
+                url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&auto=format&fit=crop')
+                center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero-content h1 { font-size: 3rem; font-weight: 800; }
+        .hero-content p  { font-size: 1.1rem; opacity: 0.9; margin-top: 10px; }
+
+        /* SECTION */
+        .properties-section { padding: 70px 0; }
+        .section-title { text-align: center; margin-bottom: 48px; }
+        .section-title h2 { font-weight: 800; font-size: 2rem; color: #0f172a; }
+        .section-title p  { color: #6b7280; }
+
+        /* CARD */
+        .property-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            transition: 0.3s;
+            height: 100%;
+            position: relative;
+        }
+        .property-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+        }
+        .property-card.is-sold .photo-grid img { filter: grayscale(0.45); }
+
+        /* SOLD RIBBON */
+        .sold-ribbon {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: #dc2626;
+            color: white;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            z-index: 2;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(220,38,38,0.35);
         }
 
-        .nav-link{
-            font-weight:600;
-            color:#374151 !important;
-            margin-left:12px;
+        /* PHOTO GRID — 3 thumbs max */
+        .photo-grid {
+            padding: 10px 10px 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
         }
 
-        .nav-link:hover{
-            color:#2563eb !important;
+        .photo-slot {
+            position: relative;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
         }
 
-        .nav-home{
-            background:#2563eb;
-            color:white !important;
-            padding:6px 14px;
-            border-radius:10px;
+        .photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.25s, opacity 0.2s;
+            display: block;
         }
 
-        .nav-home:hover{
-            background:#1d4ed8;
-            color:white !important;
+        .photo-slot:hover img { transform: scale(1.04); opacity: 0.9; }
+
+        /* "+N more" overlay on 3rd slot */
+        .photo-slot .more-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15,23,42,0.62);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 800;
+            border-radius: 10px;
         }
 
-        .properties-hero{
-            height:45vh;
-            background:linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-            url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600&auto=format&fit=crop')
-            center/cover;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
+        /* VIDEO BUTTON */
+        .video-big-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 8px 10px 10px;
+            padding: 12px 16px;
+            background: linear-gradient(120deg, #0f172a 0%, #1e3a5f 100%);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.88rem;
+            border: 1px solid rgba(30,64,175,0.3);
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+        .video-big-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            transition: left 0.5s;
+        }
+        .video-big-btn:hover::after { left: 100%; }
+        .video-big-btn:hover {
+            background: linear-gradient(120deg, #1e3a5f 0%, #1e40af 100%);
+            color: white;
+            box-shadow: 0 8px 22px rgba(30,64,175,0.28);
+            transform: translateY(-1px);
+        }
+        .video-play-circle {
+            width: 38px; height: 38px; min-width: 38px;
+            background: rgba(255,255,255,0.12);
+            border: 1.5px solid rgba(255,255,255,0.25);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem;
+            padding-left: 2px;
+        }
+        .video-btn-text { display: flex; flex-direction: column; }
+        .video-btn-text .v-label { font-weight: 700; font-size: 0.88rem; line-height: 1.3; }
+        .video-btn-text .v-sub  { font-size: 0.72rem; opacity: 0.55; font-weight: 400; margin-top: 1px; }
+
+        /* CARD BODY */
+        .property-body { padding: 16px 20px 20px; }
+        .property-name { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+        .property-location { color: #6b7280; font-size: 0.88rem; margin-bottom: 10px; }
+        .property-location i { color: #1e40af; margin-right: 4px; }
+        .property-price { font-size: 1.6rem; font-weight: 800; color: #1e40af; margin-bottom: 14px; }
+        .btn-contact {
+            width: 100%;
+            background: #1e40af;
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .btn-contact:hover { background: #1d4ed8; }
+
+        /* LIGHTBOX */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.94);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
-        .hero-content h1{color:white;font-size:4rem;font-weight:800;}
-        .hero-content p{color:#f3f4f6;}
+        #lightbox.open { display: flex; }
 
-        .properties-section{padding:70px 0;}
-
-        .property-card{
-            background:white;
-            border-radius:18px;
-            overflow:hidden;
-            border:1px solid #e5e7eb;
-            transition:0.3s;
-            height:100%;
+        #lightbox-img {
+            max-width: 86vw;
+            max-height: 78vh;
+            border-radius: 12px;
+            object-fit: contain;
+            user-select: none;
         }
 
-        .property-card:hover{
-            transform:translateY(-6px);
-            box-shadow:0 15px 40px rgba(0,0,0,0.08);
+        .lb-close {
+            position: absolute;
+            top: 20px; right: 28px;
+            font-size: 38px;
+            color: white;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0.8;
+            transition: opacity 0.15s;
+        }
+        .lb-close:hover { opacity: 1; }
+
+        .lb-counter {
+            position: absolute;
+            top: 26px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
-        .property-image{
-            width:100%;
-            padding:10px;
-            background:#f9fafb;
-            display:grid;
-            grid-template-columns:repeat(2,1fr);
-            gap:8px;
-            position:relative;
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.12);
+            border: 1.5px solid rgba(255,255,255,0.2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
         }
+        .lb-nav:hover { background: rgba(255,255,255,0.25); }
+        .lb-nav.prev { left: 24px; }
+        .lb-nav.next { right: 24px; }
+        .lb-nav.hidden { opacity: 0; pointer-events: none; }
 
-        .property-image img{
-            width:100%;
-            height:160px;
-            object-fit:cover;
-            border-radius:12px;
-            cursor:pointer;
-        }
-
-        .video-big-btn{
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            gap:10px;
-            width:100%;
-            padding:14px;
-            margin-top:10px;
-            background:#ef4444;
-            color:white;
-            border-radius:12px;
-            font-weight:700;
-            text-decoration:none;
-            font-size:15px;
-        }
-
-        .video-big-btn:hover{
-            background:#dc2626;
-        }
-
-        .price{
-            font-size:1.8rem;
-            font-weight:800;
-            color:#2563eb;
-        }
-
-        .btn-view-details{
-            width:100%;
-            background:#2563eb;
-            border:none;
-            color:white;
-            padding:13px;
-            border-radius:12px;
-            font-weight:700;
-        }
-
-        .lightbox{
-            display:none;
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background:rgba(0,0,0,0.92);
-            justify-content:center;
-            align-items:center;
-            z-index:9999;
-        }
-
-        .lightbox img{
-            max-width:85%;
-            max-height:85%;
-            border-radius:14px;
-        }
-
-        .close-btn{
-            position:absolute;
-            top:25px;
-            right:35px;
-            font-size:42px;
-            color:white;
-            cursor:pointer;
-        }
+        /* FOOTER */
+        footer { background: #0f172a; color: #cbd5e1; text-align: center; padding: 28px; }
+        footer a { color: #60a5fa; text-decoration: none; }
     </style>
 </head>
-
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
-
         <a class="navbar-brand" href="/">
             <i class="fas fa-building"></i> Shree Nath Ji Associates
         </a>
-
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse justify-content-end" id="nav">
-            <ul class="navbar-nav">
-
-                <!-- HOME BUTTON ADDED -->
-                <li class="nav-item">
-                    <a class="nav-link nav-home" href="/">
-                        <i class="fas fa-home"></i> Home
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact/form">
-                        Contact
-                    </a>
-                </li>
-
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/properties">Properties</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact/form">Contact</a></li>
             </ul>
         </div>
-
     </div>
 </nav>
 
@@ -198,80 +288,136 @@
 <section class="properties-hero">
     <div class="hero-content">
         <h1>Featured Properties</h1>
-        <p>Explore premium lands, residential & industrial properties</p>
+        <p>Explore premium lands, residential &amp; commercial properties in Uttarakhand</p>
     </div>
 </section>
 
 <!-- PROPERTIES -->
 <section class="properties-section">
     <div class="container">
+
+        <div class="section-title">
+            <h2>Available Listings</h2>
+            <p>Browse our verified property portfolio</p>
+        </div>
+
         <div class="row g-4">
-
             <div class="col-lg-4 col-md-6" th:each="p : ${properties}">
+                <div class="property-card" th:classappend="${p.isSold} ? 'is-sold'">
+                    <div class="sold-ribbon" th:if="${p.isSold}">Sold</div>
 
-                <div class="property-card"
-                     th:attr="data-images=${#strings.listJoin(p.mediaUrls, '||')}">
-
-                    <div class="property-image">
-
-                        <img th:each="media : ${p.mediaUrls}"
-                             th:if="${p.mediaUrls != null and !p.mediaUrls.isEmpty()}"
-                             th:src="${media}"
-                             onclick="openGallery(this)" />
-
-                        <a th:if="${p.videoUrl != null and !p.videoUrl.isEmpty()}"
-                           th:href="${p.videoUrl}"
-                           target="_blank"
-                           class="video-big-btn">
-
-                            <i class="fas fa-play-circle"></i>
-                            Watch Property Video
-                        </a>
-
+                    <!-- PHOTO GRID: max 3 thumbnails -->
+                    <div class="photo-grid"
+                         th:if="${p.mediaUrls != null and !p.mediaUrls.isEmpty()}"
+                         th:attr="data-gallery=${#strings.listJoin(p.mediaUrls, '||')}">
+                        <th:block th:each="media, s : ${p.mediaUrls}" th:if="${s.index < 3}">
+                            <div class="photo-slot" th:onclick="'openLightbox(this.closest(\'[data-gallery]\'), ' + ${s.index} + ')'">
+                                <img th:src="${media}" alt="Property photo" />
+                                <!-- "+N more" overlay only on the 3rd slot when there are more than 3 -->
+                                <div class="more-overlay"
+                                     th:if="${s.index == 2 and p.mediaUrls.size() > 3}"
+                                     th:text="'+' + ${p.mediaUrls.size() - 3} + ' more'"></div>
+                            </div>
+                        </th:block>
                     </div>
 
-                    <div class="property-card-body">
-                        <h5 th:text="${p.name}"></h5>
+                    <!-- VIDEO BUTTON -->
+                    <a th:if="${p.videoUrl != null and !p.videoUrl.isEmpty()}"
+                       th:href="${p.videoUrl}"
+                       target="_blank"
+                       class="video-big-btn">
+                        <div class="video-play-circle">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-btn-text">
+                            <span class="v-label">Watch Property Video</span>
+                            <span class="v-sub">Opens in new tab</span>
+                        </div>
+                    </a>
 
-                        <div class="location">
+                    <div class="property-body">
+                        <div class="property-name" th:text="${p.name}"></div>
+                        <div class="property-location">
                             <i class="fas fa-location-dot"></i>
                             <span th:text="${p.location}"></span>
                         </div>
-
-                        <div class="price" th:text="'₹ ' + ${p.price}"></div>
-
-                        <button class="btn btn-view-details"
-                                onclick="window.location.href='/contact/form'">
-                            Contact for Details
+                        <div class="property-price" th:text="'₹ ' + ${p.price}"></div>
+                        <button th:if="${!p.isSold}" class="btn-contact" onclick="window.location.href='/contact/form'">
+                            <i class="fas fa-phone" style="margin-right:6px;"></i>Contact for Details
+                        </button>
+                        <button th:if="${p.isSold}" class="btn-contact" disabled
+                                style="background:#e5e7eb;color:#9ca3af;cursor:not-allowed;">
+                            <i class="fas fa-ban" style="margin-right:6px;"></i>This Property is Sold
                         </button>
                     </div>
 
                 </div>
-
             </div>
-
         </div>
+
     </div>
 </section>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox" onclick="closeGallery()">
-    <span class="close-btn">&times;</span>
-    <img id="lightbox-img">
+<div id="lightbox">
+    <span class="lb-close" onclick="closeLightbox()">&times;</span>
+    <div class="lb-counter" id="lb-counter"></div>
+    <div class="lb-nav prev" id="lb-prev" onclick="lightboxNav(-1)"><i class="fas fa-chevron-left"></i></div>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lb-nav next" id="lb-next" onclick="lightboxNav(1)"><i class="fas fa-chevron-right"></i></div>
 </div>
 
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Shree Nath Ji Associates | Property Platform</p>
+    <p><a href="/contact/form">Contact Us</a></p>
+</footer>
+
 <script>
-    function openGallery(img){
-        document.getElementById('lightbox').style.display = 'flex';
-        document.getElementById('lightbox-img').src = img.src;
+    let lbImages = [];
+    let lbIndex  = 0;
+
+    function openLightbox(galleryEl, startIndex) {
+        const raw = galleryEl.getAttribute('data-gallery');
+        lbImages = raw ? raw.split('||').filter(u => u.trim()) : [];
+        if (!lbImages.length) return;
+        lbIndex = startIndex;
+        renderLightbox();
+        document.getElementById('lightbox').classList.add('open');
+        document.body.style.overflow = 'hidden';
     }
 
-    function closeGallery(){
-        document.getElementById('lightbox').style.display = 'none';
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
     }
+
+    function lightboxNav(dir) {
+        lbIndex = Math.max(0, Math.min(lbImages.length - 1, lbIndex + dir));
+        renderLightbox();
+    }
+
+    function renderLightbox() {
+        document.getElementById('lightbox-img').src = lbImages[lbIndex];
+        document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+        document.getElementById('lb-prev').classList.toggle('hidden', lbIndex === 0);
+        document.getElementById('lb-next').classList.toggle('hidden', lbIndex === lbImages.length - 1);
+    }
+
+    // Close on backdrop click (but not on img/nav clicks)
+    document.getElementById('lightbox').addEventListener('click', function (e) {
+        if (e.target === this) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function (e) {
+        if (!document.getElementById('lightbox').classList.contains('open')) return;
+        if (e.key === 'ArrowRight') lightboxNav(1);
+        if (e.key === 'ArrowLeft')  lightboxNav(-1);
+        if (e.key === 'Escape')     closeLightbox();
+    });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

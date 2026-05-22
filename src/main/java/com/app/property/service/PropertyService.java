@@ -4,6 +4,7 @@ package com.app.property.service;
 import com.app.property.entity.Property;
 import com.app.property.mapper.PropertyMapper;
 import com.app.property.model.PropertyDTO;
+import com.app.property.model.UpdatePropertyRequest;
 import com.app.property.repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,17 @@ public class PropertyService {
 
         List<String> uploadedFiles = saveMediaFile( propertyDTO.getMedia());
         Property property = propertyMapper.toProperty(propertyDTO, uploadedFiles);
+        propertyRepository.save(property);
+    }
+
+    public void updateProperty(String propertyId, UpdatePropertyRequest req) {
+        var property = propertyRepository.findById(UUID.fromString(propertyId))
+                .orElseThrow(() -> new IllegalArgumentException("Property not found: " + propertyId));
+        if (req.name() != null) property.setName(req.name());
+        if (req.description() != null) property.setDescription(req.description());
+        if (req.price() != null) property.setPrice(req.price());
+        if (req.location() != null) property.setLocation(req.location());
+        if (req.isSold() != null) property.setIsSold(req.isSold());
         propertyRepository.save(property);
     }
 

@@ -4,176 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Shree Nath Ji Associates</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
     <style>
-        body{
+        body {
             font-family: Inter, "Segoe UI", sans-serif;
-            background:#f5f7fb;
-            color:#1f2937;
+            background: #f5f7fb;
+            color: #1f2937;
         }
 
         /* NAVBAR */
-        .navbar{
-            background:#fff !important;
-            border-bottom:1px solid #e5e7eb;
+        .navbar {
+            background: #ffffff !important;
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        .navbar-brand{
-            font-weight:800;
-            color:#1e40af !important;
+        .navbar-brand {
+            font-weight: 800;
+            color: #1e40af !important;
+            font-size: 1.4rem;
         }
 
-        .nav-link{
-            color:#374151 !important;
-            font-weight:500;
+        .nav-link {
+            color: #374151 !important;
+            font-weight: 500;
+            margin-left: 12px;
         }
 
-        .nav-link:hover{
-            color:#1e40af !important;
+        .nav-link:hover, .nav-link.active {
+            color: #1e40af !important;
         }
 
-        /* HEADER */
-        .page-header{
+        /* HERO */
+        .page-header {
             background:
                 linear-gradient(120deg, rgba(30,64,175,0.85), rgba(2,132,199,0.85)),
                 url('https://images.unsplash.com/photo-1574260978011-f88a2b25eaea?w=1600&auto=format&fit=crop')
                 center/cover;
-            color:white;
-            padding:70px 0;
-            text-align:center;
+            color: white;
+            padding: 72px 0;
+            text-align: center;
         }
 
-        .page-header h1{
-            font-weight:800;
-            font-size:3rem;
+        .page-header h1 {
+            font-weight: 800;
+            font-size: 2.8rem;
         }
 
-        .page-header p{
-            opacity:0.9;
+        .page-header p {
+            opacity: 0.9;
+            font-size: 1.05rem;
+            margin-top: 8px;
         }
 
         /* SECTION */
-        .contact-section{
-            padding:70px 0;
+        .contact-section {
+            padding: 70px 0;
         }
 
         /* INFO BOX */
-        .info-box{
-            background:white;
-            border-radius:14px;
-            padding:25px;
-            border:1px solid #e5e7eb;
+        .info-box {
+            background: white;
+            border-radius: 14px;
+            padding: 28px;
+            border: 1px solid #e5e7eb;
+            height: 100%;
         }
 
-        .info-item{
-            display:flex;
-            gap:15px;
-            margin-bottom:25px;
+        .info-box h4 {
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 24px;
+            font-size: 1.1rem;
         }
 
-        .info-item i{
-            font-size:1.5rem;
-            color:#1e40af;
-            margin-top:3px;
+        .info-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            align-items: flex-start;
         }
 
-        .info-item h5{
-            font-weight:700;
-            margin-bottom:5px;
+        .info-icon {
+            width: 42px;
+            height: 42px;
+            background: #eff6ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .info-item p{
-            color:#6b7280;
-            margin:0;
+        .info-icon i {
+            font-size: 1.1rem;
+            color: #1e40af;
+        }
+
+        .info-item h5 {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: #0f172a;
+        }
+
+        .info-item p {
+            color: #6b7280;
+            margin: 0;
+            font-size: 0.88rem;
+            line-height: 1.6;
         }
 
         /* FORM BOX */
-        .form-box{
-            background:white;
-            border-radius:14px;
-            padding:30px;
-            border:1px solid #e5e7eb;
-            box-shadow:0 10px 25px rgba(0,0,0,0.04);
+        .form-box {
+            background: white;
+            border-radius: 14px;
+            padding: 32px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
         }
 
-        .form-box h2{
-            font-weight:800;
-            margin-bottom:25px;
-            text-align:center;
+        .form-box h4 {
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: #0f172a;
+            font-size: 1.2rem;
         }
 
-        .form-control,
-        .form-select{
-            border-radius:10px;
-            border:1px solid #d1d5db;
-            padding:12px;
+        .form-label {
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: #374151;
         }
 
-        .btn-submit{
-            background:#1e40af;
-            color:white;
-            border:none;
-            width:100%;
-            padding:12px;
-            border-radius:10px;
-            font-weight:700;
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1.5px solid #e5e7eb;
+            padding: 11px 14px;
+            font-size: 0.92rem;
         }
 
-        .btn-submit:hover{
-            background:#1d4ed8;
+        .form-control:focus, .form-select:focus {
+            border-color: #1e40af;
+            box-shadow: 0 0 0 3px rgba(30,64,175,0.1);
+        }
+
+        .btn-submit {
+            background: #1e40af;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 13px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: #1d4ed8;
+            color: white;
         }
 
         /* FOOTER */
-        footer{
-            background:#0f172a;
-            color:#cbd5e1;
-            text-align:center;
-            padding:25px;
-            margin-top:50px;
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 28px;
+            margin-top: 0;
         }
 
-        /* WHATSAPP FLOAT */
-        .whatsapp-float{
-            position:fixed;
-            bottom:25px;
-            right:25px;
-            width:55px;
-            height:55px;
-            background:#25D366;
-            color:white;
-            border-radius:50%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:28px;
-            box-shadow:0 10px 25px rgba(0,0,0,0.2);
-            z-index:9999;
-            text-decoration:none;
+        footer a {
+            color: #60a5fa;
+            text-decoration: none;
         }
 
-        .whatsapp-float:hover{
-            transform:scale(1.1);
+        /* WHATSAPP */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+            z-index: 9999;
+            text-decoration: none;
+            transition: transform 0.2s;
         }
 
-        /* popup */
-        .popup{
-            position:fixed;
-            top:50%;
-            left:50%;
-            transform:translate(-50%,-50%);
-            background:white;
-            padding:25px;
-            border-radius:12px;
-            box-shadow:0 10px 30px rgba(0,0,0,0.3);
-            z-index:10000;
-            display:none;
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+
+        /* TOAST */
+        .toast-msg {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: #0f172a;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast-msg i {
+            color: #4ade80;
         }
     </style>
 </head>
-
 <body>
 
 <!-- NAVBAR -->
@@ -182,8 +236,10 @@
         <a class="navbar-brand" href="/">
             <i class="fas fa-building"></i> Shree Nath Ji Associates
         </a>
-
-        <div class="collapse navbar-collapse">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/properties">Properties</a></li>
@@ -196,8 +252,8 @@
 <!-- HEADER -->
 <section class="page-header">
     <div class="container">
-        <h1>Get in Touch</h1>
-        <p>We’ll help you find the perfect property</p>
+        <h1><i class="fas fa-headset" style="margin-right:12px;"></i>Get in Touch</h1>
+        <p>We'll help you find the perfect property in Uttarakhand</p>
     </div>
 </section>
 
@@ -207,11 +263,12 @@
         <div class="row g-4">
 
             <!-- INFO -->
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 <div class="info-box">
+                    <h4>Contact Information</h4>
 
                     <div class="info-item">
-                        <i class="fas fa-phone"></i>
+                        <div class="info-icon"><i class="fas fa-phone"></i></div>
                         <div>
                             <h5>Phone</h5>
                             <p>+91-99996-49161</p>
@@ -219,7 +276,7 @@
                     </div>
 
                     <div class="info-item">
-                        <i class="fas fa-envelope"></i>
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
                         <div>
                             <h5>Email</h5>
                             <p>shreeenathjiassociates@gmail.com</p>
@@ -227,46 +284,65 @@
                     </div>
 
                     <div class="info-item">
-                        <i class="fas fa-location-dot"></i>
+                        <div class="info-icon"><i class="fas fa-location-dot"></i></div>
                         <div>
                             <h5>Office</h5>
-                            <p>Shree Nath Ji Associates<br>
-                                Office-SG3/7&8 shopping complex<br>
-                                Street No 8(behind Police line)<br>
-                                Shivalik Ganga Vihar Roshnabad Haridwar<br>
-                                Uttarakhand, India</p>
+                            <p>Office-SG3/7&amp;8 Shopping Complex<br>
+                               Street No. 8 (Behind Police Line)<br>
+                               Shivalik Ganga Vihar, Roshnabad<br>
+                               Haridwar, Uttarakhand, India</p>
                         </div>
                     </div>
-
                 </div>
             </div>
 
             <!-- FORM -->
-            <div class="col-lg-7">
+            <div class="col-lg-8">
                 <div class="form-box">
-
-                    <h2>Send Enquiry</h2>
+                    <h4>Send Enquiry</h4>
 
                     <form id="contactForm">
+                        <div class="row g-3">
 
-                        <input class="form-control mb-3" id="name" placeholder="Full Name" required>
-                        <input class="form-control mb-3" id="phone" placeholder="Phone (10 digit)" maxlength="10" required>
-                        <input class="form-control mb-3" id="email" placeholder="Email" required>
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input class="form-control" id="name" placeholder="Your full name" required>
+                            </div>
 
-                        <select class="form-select mb-3" id="propertyType" required>
-                            <option value="">Select Property Type</option>
-                            <option value="farmland">Agricultural Land</option>
-                            <option value="farmhouse">Farmhouse</option>
-                            <option value="residential">Residential</option>
-                            <option value="commercial">Commercial</option>
-                        </select>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone</label>
+                                <input class="form-control" id="phone" placeholder="10-digit number" maxlength="10" required>
+                            </div>
 
-                        <textarea class="form-control mb-3" id="enquiry" rows="4" placeholder="Your requirement..." required></textarea>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input class="form-control" id="email" type="email" placeholder="your@email.com" required>
+                            </div>
 
-                        <button class="btn-submit" type="submit">Send Enquiry</button>
+                            <div class="col-md-6">
+                                <label class="form-label">Property Type</label>
+                                <select class="form-select" id="propertyType" required>
+                                    <option value="">Select type</option>
+                                    <option value="farmland">Agricultural Land</option>
+                                    <option value="farmhouse">Farmhouse</option>
+                                    <option value="residential">Residential</option>
+                                    <option value="commercial">Commercial</option>
+                                </select>
+                            </div>
 
+                            <div class="col-12">
+                                <label class="form-label">Your Requirement</label>
+                                <textarea class="form-control" id="enquiry" rows="4" placeholder="Tell us what you are looking for..." required></textarea>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn-submit" type="submit">
+                                    <i class="fas fa-paper-plane" style="margin-right:8px;"></i>Send Enquiry
+                                </button>
+                            </div>
+
+                        </div>
                     </form>
-
                 </div>
             </div>
 
@@ -276,7 +352,8 @@
 
 <!-- FOOTER -->
 <footer>
-    © 2026 Shree Nath Ji Associates
+    <p>© 2026 Shree Nath Ji Associates | Property Platform</p>
+    <p><a href="/contact/form">Contact Us</a></p>
 </footer>
 
 <!-- WHATSAPP -->
@@ -286,11 +363,14 @@
     <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- SUCCESS POPUP -->
-<div class="popup" id="popup"></div>
+<!-- TOAST -->
+<div class="toast-msg" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg"></span>
+</div>
 
 <script>
-    document.getElementById("contactForm").addEventListener("submit", async function(e){
+    document.getElementById("contactForm").addEventListener("submit", async function(e) {
         e.preventDefault();
 
         const formData = {
@@ -303,23 +383,21 @@
 
         const res = await fetch("/contact", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData)
         });
 
         const data = await res.json();
 
-        const popup = document.getElementById("popup");
-        popup.innerText = data.message;
-        popup.style.display = "block";
-
-        setTimeout(() => popup.style.display = "none", 3000);
+        const toast = document.getElementById("toast");
+        document.getElementById("toastMsg").innerText = data.message;
+        toast.style.display = "flex";
+        setTimeout(() => toast.style.display = "none", 3500);
 
         this.reset();
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

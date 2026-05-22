@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "PropertyMedia")
+@Table(name = "property_media")
 @NoArgsConstructor
 public class PropertyMedia {
 

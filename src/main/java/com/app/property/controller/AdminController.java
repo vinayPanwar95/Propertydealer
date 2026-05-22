@@ -2,6 +2,7 @@
 package com.app.property.controller;
 
 import com.app.property.model.PropertyDTO;
+import com.app.property.model.UpdatePropertyRequest;
 import com.app.property.service.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,14 @@ public class AdminController {
     public String delete(@PathVariable String id) {
         propertyService.delete(id);
         return "redirect:/admin";
+    }
+
+    @PutMapping("/api/property/{id}")
+    @ResponseBody
+    public ResponseEntity<Void> updateProperty(@PathVariable String id,
+                                               @RequestBody UpdatePropertyRequest req) {
+        propertyService.updateProperty(id, req);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/properties")
