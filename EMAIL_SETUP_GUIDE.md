@@ -7,7 +7,7 @@ The property dealer application now sends emails when users submit contact form 
 1. User submits contact form from `/contact.html`
 2. Form data is sent to backend (`/contact` endpoint) via POST request
 3. Backend validates the data
-4. **Email 1**: Admin email sent to `shreeenathjiassociates@gmail.com` with user enquiry details
+4. **Email 1**: Admin email sent to `shreeenathjiassociate07@gmail.com` with user enquiry details
 5. **Email 2**: Confirmation email sent to user's email address
 6. Success message displayed to user
 
@@ -26,15 +26,15 @@ The following email configuration has been added:
 # Email Configuration (Gmail SMTP)
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
-spring.mail.username=shreeenathjiassociates@gmail.com
+spring.mail.username=shreeenathjiassociate07@gmail.com
 spring.mail.password=YOUR_GMAIL_APP_PASSWORD
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
 
 # Custom Email Configuration
-app.mail.from=shreeenathjiassociates@gmail.com
-app.mail.recipient=shreeenathjiassociates@gmail.com
+app.mail.from=shreeenathjiassociate07@gmail.com
+app.mail.recipient=shreeenathjiassociate07@gmail.com
 ```
 
 ⚠️ **IMPORTANT**: Replace `YOUR_GMAIL_APP_PASSWORD` with an actual Gmail App Password (NOT your Gmail password)
@@ -69,7 +69,7 @@ mvn spring-boot:run
 
 ## Email Templates:
 
-### Email to Admin (shreeenathjiassociates@gmail.com):
+### Email to Admin (shreeenathjiassociate07@gmail.com):
 Subject: "New Property Enquiry from [User Name]"
 
 Body contains:
@@ -103,7 +103,7 @@ Body contains:
 4. Click "Send Enquiry"
 5. You should receive:
    - Confirmation message in browser
-   - Admin email at shreeenathjiassociates@gmail.com
+   - Admin email at shreeenathjiassociate07@gmail.com
    - Confirmation email at your@email.com
 
 ## Error Handling:

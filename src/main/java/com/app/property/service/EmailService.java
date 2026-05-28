@@ -82,7 +82,7 @@ public class EmailService {
                     "Best regards,\n" +
                     "Shree Nath Ji Associates Team\n\n" +
                     "Contact: +91-99996-49161\n" +
-                    "Email: shreeenathjiassociates@gmail.com";
+                    "Email: shreeenathjiassociate07@gmail.com";
 
             message.setText(body);
             mailSender.send(message);

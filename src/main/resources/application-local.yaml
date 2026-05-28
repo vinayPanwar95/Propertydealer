@@ -10,8 +10,8 @@ app:
     password: ${ADMIN_USER_PASSWORD}
 
   mail:
-    from: shreeenathjiassociates@gmail.com
-    recipient: shreeenathjiassociates@gmail.com
+    from: shreeenathjiassociate07@gmail.com
+    recipient: shreeenathjiassociate07@gmail.com
 
 
 spring:
